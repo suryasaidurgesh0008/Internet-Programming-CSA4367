@@ -1,0 +1,343 @@
+(login page)
+(HTML Code)
+<html>
+<head>
+<title> LibraryManagement </title>
+<link rel="stylesheet" href="style2.css">
+</head>
+<body style="background-color:powderblue;" >
+<h1 align="center" ><u>
+Library Managment System
+</u>
+</h1>
+<p align="right"; id="demo"></p>
+<script>
+const d = new Date();
+document.getElementById("demo").innerHTML = d;
+</script>
+<script>
+const d = new Date("2023-10-18");
+document.getElementById("demo").innerHTML = d;
+</script>
+<hr>
+<p align="center">
+A library management system is software that is designed to manage all the functions of a library. It helps librarian to maintain the database of new books and the books that are borrowed by members along with their due dates. This system completely automates all your library's activities.
+</p>
+<hr>
+<form action="/blood/login2.php" method="POST">
+<label>Username : </label>   
+<input type="text" placeholder="Enter Username" name="username" required><br>
+<label>Password : </label>   
+<input type="password" placeholder="Enter Password" name="password" required><br>
+<button name="login">Login</button>
+<p align="center">
+<a href="menu.html"><b>NextPage</b></a>
+</p>
+</form>  
+</body>
+</html>
+
+(Login Page)
+(PHP Code)
+<?php
+
+if($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+$name = $_POST['username'];
+$pwd = $_POST['password'];
+
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "Database2";
+
+
+$con = mysqli_connect($servername,$username,$password,$database);
+$sql ="INSERT INTO `login2` (`name`, `password`) VALUES ('$name', '$pwd');";
+$result = mysqli_query($con,$sql);
+if ($result)
+{
+ echo "Data inserted successfully";
+}
+else
+{
+ echo "Data is not inserted successfully";
+}
+}
+?>
+
+(Menu page)
+(HTML Code)
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color:powderblue;">
+<h1 align="center"><b><u>Library System</u></b></h1>
+<h2>Menu</h2>
+<div class="row">
+  <div class="left">
+    <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
+    <ul id="myMenu">
+      <li><a href="Book.html">Books</a></li>
+      <li><a href="users.html">Register</a></li>
+      <li><a href="Aboutus.html">Aboutus</a></li>
+      <li><a href="Makefine.html">Fines</a></li>
+    </ul>
+<script>
+function myFunction() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("mySearch");
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("myMenu");
+  li = ul.getElementsByTagName("li");
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+</script>
+
+</body>
+</html>
+
+(Books Page)
+(HTML Code)
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Management System</title>
+</head>
+<body style="background-color:cyan";>
+    <h1 align="center">Welcome to the Library</h1>
+    <form action="Book.php" method="post" align="center">
+        <label for="book-title">Search for a Book:</label>
+        <input type="text" id="book-title" name="book-title">
+        <input type="submit" value="Search">
+    </form>
+
+    <h2 align="center">Available Books:</h2>
+    <ul align="center">
+        <li>
+            <span class="book-title">History</span>
+            <span class="book-author">Rajesh</span>
+        </li>
+        <li>
+            <span class="book-title">Botany</span>
+            <span class="book-author">Dr.Sudhkar</span>
+        </li>
+        <!-- Repeat for more books -->
+    </ul>
+
+    <h2 align="center">Borrowed Books:</h2>
+    <ul align="center">
+        <li>
+            <span class="book-title">Book Title 3</span>
+            <span class="book-author">Author 3</span>
+            <span class="borrower">Borrowed by: User 1</span>
+        </li>
+        <!-- Repeat for more borrowed books -->
+    </ul>
+</body>
+</html>
+
+(Book Page)
+(PHP Code)
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "kdbc";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $search_title = $_POST["book-title"];
+    $sql = "SELECT * FROM books WHERE title LIKE '%$search_title%'";
+    $result = $conn->query($sql);
+    
+    if ($result->num_rows > 0) {
+        echo "<h2>Search Results:</h2>";
+        echo "<ul>";
+        while($row = $result->fetch_assoc()) {
+            echo "<li>";
+            echo "<span class='book-title'>" . $row["title"] . "</span>";
+            echo "<span class='book-author'>" . $row["author"] . "</span>";
+            echo "</li>";
+        }
+        echo "</ul>";
+    } else {
+        echo "No results found.";
+    }
+}
+
+// Close the database connection
+$conn->close();
+?>
+
+(Users page)
+(HTML Code)
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Management System</title>
+</head>
+<body style="background-color:powderblue";>
+    <h1 align="center"><u>Welcome to the Library</u></h1>
+<h3><u>Search For Users:</u></h3>
+    <form action="users.php" method="post" align="center">
+        <label for="User">Search for a :</label>
+        <input type="text" id="ID" name="name">
+        <input type="submit" value="Search">
+    </form>
+    <h2 align="center">Available Users:</h2>
+    <ul align="center">
+        <li>
+            <span class="book-title">11201</span>
+            <span class="book-author">surya</span>
+        </li>
+        <li>
+            <span class="book-title">11202</span>
+            <span class="book-author">sai</span>
+        </li>
+    </ul>
+
+    <h2 align="center">User Updated:</h2>
+    <ul align="center">
+        <li>
+            <span class="book-title">11205</span>
+            <span class="book-author">Laxman</span>
+        </li>
+    </ul>
+</body>
+</html>
+
+(Users Page)
+(PHP Code)
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "database3";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $search_ID = $_POST["ID"];
+    $sql = "SELECT * FROM users WHERE ID LIKE '%$search_ID%'";
+    $result = $conn->query($sql);
+    
+    if ($result->num_rows > 0) {
+        echo "<h2>Search Results:</h2>";
+        echo "<ul>";
+        while($row = $result->fetch_assoc()) {
+            echo "<li>";
+            echo "<span class='book-title'>" . $row["ID"] . "</span>";
+            echo "<span class='book-author'>" . $row["name"] . "</span>";
+            echo "</li>";
+        }
+        echo "</ul>";
+    } else {
+        echo "No results found.";
+    }
+}
+
+// Close the database connection
+$conn->close();
+?>
+
+(Aboutus Page)
+(HTML Code)
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Management System</title>
+</head>
+<body style="background-color:powderblue";>
+    <h1 align="center"><u>Aboutus</u></h1>
+<h3 align="center">A library management system (LMS) is software that automates library functions. It helps librarians manage the library's data in a single database. LMSs can:
+</h3>
+<ul>
+<li>Provide information on books in the library</li>
+<li>Track books that are published, returned, or added to the library</li>
+<li>Maintain a database of new books and books that are borrowed</li>
+<li>Automate book indexing, cataloging, reservations, and overdue notifications</li>
+</ul>
+<h3 align="center">LMSs have several advantages, including:</h3>
+<ul>
+<li>They are user-friendly, faster, and easier to manage than manual systems</li>
+<li>They reduce the need for human resources</li>
+<li>They save librarians time</li>
+<li>They make it easier for readers to borrow books online</li>
+</ul>
+</body>
+</html>
+
+(Make Fine Page)
+(HTML CODE)
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Fines and Fees</title>
+    <style>
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body style="background-color:powderblue";>
+    <h1>Library Fines and Fees</h1>
+    
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Description</th>
+            <th>Fee</th>
+        </tr>
+        <tr>
+            <td>Overdue Books</td>
+            <td>Fines for books returned after the due date.</td>
+            <td>$0.25 per day</td>
+        </tr>
+        <tr>
+            <td>Late DVDs</td>
+            <td>Fines for DVDs returned after the due date.</td>
+            <td>$0.50 per day</td>
+        </tr>
+        <tr>
+            <td>Lost Library Card</td>
+            <td>Replacement fee for a lost library card.</td>
+            <td>$5.00</td>
+        </tr>
+        <tr>
+            <td>Interlibrary Loan</td>
+            <td>Fee for borrowing books from other libraries.</td>
+            <td>$3.00 per item</td>
+        </tr>
+    </table>
+    
+    <p>Please note that all fees are subject to change, and it's important to check with the library for the most up-to-date information.</p>
+
+</body>
+</html>
+
