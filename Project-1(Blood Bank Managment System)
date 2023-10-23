@@ -1,0 +1,327 @@
+(HTML Code)
+(Menu Page)
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color:powderblue;">
+<h1 align="center"><b><u>Blood Bank Managment System</u></b></h1>
+<p align="right"; id="demo"></p>
+<script>
+const d = new Date();
+document.getElementById("demo").innerHTML = d;
+</script>
+<script>
+const d = new Date("2023-10-18");
+document.getElementById("demo").innerHTML = d;
+</script>
+<hr>
+<p>
+Blood Bank Management System is a browser based solution that is designed to store, process, retrieve and analyze information concerned with the administrative, inventory management and clinical aspects of providing services within a blood bank.
+</p>
+<hr>
+<h2>BloodBank</h2>
+<div class="row">
+  <div class="left">
+    <h2>Menu</h2>
+    <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
+    <ul id="myMenu">
+      <li><a href="Login.html">Login</a></li>
+      <li><a href="register.html">Register</a></li>
+      <li><a href="Donar_Info.html">Donar_Info</a></li>
+      <li><a href="hospital.html">Hospital</a></li>
+    </ul>
+<script>
+function myFunction() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("mySearch");
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("myMenu");
+  li = ul.getElementsByTagName("li");
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+</script>
+</body>
+</html>
+
+(Doners Info HTML Code)
+<html>
+<body style="background-color:powderblue;">
+<style>
+ol {
+  font-size: 30px;
+  align:center;
+}
+</style>
+<h1 align=center><b><u>Donars Information</u></b></h1>
+<hr>
+<ol align="center">
+<li>Laxman Reddy <br>
+     Age:35<br>
+    Gender:Male<br>
+    BloodGroup:A+
+</li><hr>
+<li> Nagalakshmi <br>
+     Age:45<br>
+     Gender:Female<br>
+     BloodGroup:B+
+</li><hr>
+<li> Rajesh <br>
+     Age:36<br>
+     Gender:Male<br>
+     BloodGroup:O+
+</li><hr>
+<li> Suryasaidurgesh <br>
+     Age:20<br>
+     Gender:Male<br>
+     BloodGroup:B+
+</li>
+</p>
+</body>
+</html>
+
+(Hospital INFO HTML Code)
+<html>
+<head>
+<title> Hospital</title>
+</head>
+<body style="background-color:powderblue;">
+<h1 align="center"><b><u>HospitalManagment</u></b></h1>
+<br><br><br>
+<ol>
+<li>
+<address>
+Apollo Hospital <a href="https://www.askapollo.com/physical-appointment/city/chennai">Apollo</a>.<br> 
+Chennai<br>
+Near Annanagar<br>
+Box 564,Tamilnadu<br>
+India
+</address>
+</li>
+<li>
+<address>
+Saveetha Hospital<a href="https://www.justdial.com/Chennai/Saveetha-Medical-Hospital-Kuthambakkam/044PXX44-XX44-170208171422-R5D5_BZDET">Saveetha</a>.<br> 
+Chennai<br>
+Near Thandlam<br>
+Tamilnadu<br>
+India
+</address>
+</li>
+<li>
+<address>
+Murugan Hospital<a href="https://www.practo.com/chennai/hospital/murugan-hospital-kilpauk/doctors">Murugan Hospital</a>.<br> 
+Chennai<br>
+Near Thandlam<br>
+Tamilnadu<br>
+India
+</address>
+</li>
+</body>
+</html>
+
+(Login Page HTML Code)
+<!DOCTYPE html>
+<html>
+<body style="background-color:powderblue;">
+<style>
+body {
+  background-image: url('https://static.vecteezy.com/system/resources/thumbnails/017/173/509/small/blood-donation-medical-flat-icons-elements-design-free-png.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+  background-size: 100% 100%;
+}
+</style>
+<br><br>
+<h1 align="center"><u>Login Page<u></h1>
+<br><br><br>
+<form align=center>
+User:<input type="text" id="UserId"><br><br>
+Password:<input type="varchar" id="Password"><br><br>
+<input type="submit" id="Submit">
+<input type="reset" id="Reset">
+</form>
+</body>
+</html>
+
+(PHP Code for Login Page)
+<?php
+
+if($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+$name = $_POST['UserId'];
+$pwd = $_POST['Password'];
+
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "kdbc";
+
+
+$con = mysqli_connect($servername,$username,$password,$database);
+$sql ="INSERT INTO `logindata` (`User`, `Password`) VALUES ('$name', '$pwd')";
+$result = mysqli_query($con,$sql);
+if ($result)
+{
+ echo "Data inserted successfully";
+}
+else
+{
+ echo "Data is not inserted successfully";
+}
+}
+?>
+
+(HTML Code for Register)
+<!DOCTYPE html>
+<html>
+<body style="background-color:powderblue;">
+<style>
+body {
+  background-image: url('https://static.vecteezy.com/system/resources/thumbnails/017/173/509/small/blood-donation-medical-flat-icons-elements-design-free-png.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+  background-size: 100% 100%;
+}
+</style>
+<style>
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+p {
+  font-size: 20px;
+}
+</style>
+<br><br>
+<h1 align="center"><u>RegisterForm<u></h1>
+<br><br>
+<form align=center>
+Name:<input type="text" id="Name">
+<br><br>
+Age:<input type="int" id="Age">
+<br><br>
+Address:<textarea type="text" id="Address"></textarea>
+<br><br>
+BloodGroup:<input type="text" id="BloodGroup">
+<br><br>
+Phonenumber:<input type="double" id="Phonenumber">
+<br><br>
+Healthissues:<br>
+<input type="radio" id="Diabetis">Diabetis<br>
+<input type="radio" id="Ellergys">Ellergys<br>
+<input type="radio" id="Alocoholic">Alocoholic<br>
+<input type="radio" id="Smoking">Smoking<br>
+<input type="radio" id="None">None<br><br>
+<input type="submit" id="Submit">
+<input type="reset" id="Reset">
+</form>
+</body>
+</html>
+
+(PHP CODE for Register)
+<?php
+
+if($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+$name = $_POST['Name'];
+$age = $_POST['Age'];
+$add = $_POST['Address'];
+$blg = $_POST['BloodGroup'];
+$ph = $_POST['Phonenumber'];
+
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "database";
+
+
+$con = mysqli_connect($servername,$username,$password,$database);
+$sql ="INSERT INTO `register` (`name`, `password`, `address`, `bloodgroup`, `phonenumber`) VALUES ('$name', '$age', '$add', '$blg', '$ph');";
+$result = mysqli_query($con,$sql);
+if ($result)
+{
+ echo "Data inserted successfully";
+}
+else
+{
+ echo "Data is not inserted successfully";
+}
+}
+?>
+
+(CSS FILE for project)
+
+body {
+  background-image: url('https://img.favpng.com/17/10/12/blood-donation-logo-blood-bank-png-favpng-VjmcnSqewheyp0jS0girySXpt.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+  background-size: 100% 100%;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create a column layout with Flexbox */
+.row {
+  display: flex;
+}
+
+/* Left column (menu) */
+.left {
+  flex: 35%;
+  padding: 15px 0;
+}
+
+.left h2 {
+  padding-left: 8px;
+}
+
+/* Right column (page content) */
+.right {
+  flex: 40%;
+  padding: 15px;
+}
+
+/* Style the search box */
+#mySearch {
+  width: 50%;
+  font-size: 18px;
+  padding: 11px;
+  border: 1px solid #ddd;
+}
+
+/* Style the navigation menu inside the left column */
+#myMenu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#myMenu li a {
+  padding: 12px;
+  text-decoration: none;
+  color: black;
+  display: block
+}
+
+#myMenu li a:hover {
+  background-color: #eee;
+}
